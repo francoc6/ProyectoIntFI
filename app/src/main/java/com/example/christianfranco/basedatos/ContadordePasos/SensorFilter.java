@@ -1,7 +1,6 @@
 package com.example.christianfranco.basedatos.ContadordePasos;
 
 public class SensorFilter {
-
     private SensorFilter() {
     }
 
@@ -43,4 +42,6 @@ public class SensorFilter {
         }
         return retval;
     }
+
+
 }

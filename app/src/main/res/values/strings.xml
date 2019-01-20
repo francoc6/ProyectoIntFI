@@ -32,6 +32,8 @@
     <string name="btnDatos">Pasos!</string>
     <string name="btnStatus">Status</string>
     <string name="bntLogro">Logros</string>
+    <string name="btnDiabetes">Cuestionario Diabetes</string>
+    <string name="btnPresion">Riesgo presion</string>
 
 
     <string name="tipodato">SELECCIONA EL TIPO DE DATO A INGRESAR</string>
@@ -76,5 +78,53 @@
     <string name="P7">7.Acorde a la tabla, ¿Cuál es su peso? </string>
     <string name="Texto7">Para ver la tabla referencial haga click </string>
 
+
+
+
+    <string name="TituloPresion">Porcentaje de Riesgo</string>
+
+    <string name="PP1">1.¿Cual es su genero? </string>
+    <string name="PP1op1">Hombre </string>
+    <string name="PP1op2">Mujer </string>
+
+    <string name="PP2">2.¿Cual es su edad? </string>
+    <string name="PP2op1">20-34 </string>
+    <string name="PP2op2">35-39 </string>
+    <string name="PP2op3">40-44 </string>
+    <string name="PP2op4">45-49 </string>
+    <string name="PP2op5">50-54 </string>
+    <string name="PP2op6">55-59 </string>
+    <string name="PP2op7">60-64 </string>
+    <string name="PP2op8">65-69 </string>
+    <string name="PP2op9">70-74 </string>
+    <string name="PP2op10">75-79 </string>
+
+    <string name="PP3">3.¿Cual es su colesterol total? </string>
+    <string name="PP3op1">menor a 160 </string>
+    <string name="PP3op2">160-199 </string>
+    <string name="PP3op3">200-239 </string>
+    <string name="PP3op4">240-279 </string>
+    <string name="PP3op5">>=280 </string>
+
+    <string name="PP4">4.¿Usted fuma? </string>
+    <string name="PP4op1">Si </string>
+    <string name="PP4op2">No </string>
+
+    <string name="PP5">5.¿Cual es su nivel HDL? </string>
+    <string name="PP5op1">>=60 </string>
+    <string name="PP5op2">50-59 </string>
+    <string name="PP5op3">40-49 </string>
+    <string name="PP5op4">mayor a 40 </string>
+
+    <string name="PP6">6.¿Esta en algun tratamiento para la resion sistolica? </string>
+    <string name="PP6op1">Si </string>
+    <string name="PP6op2">No </string>
+
+    <string name="PP7">7.¿Cual es su presion sistolica? </string>
+    <string name="PP7op1"> menor a 120 </string>
+    <string name="PP7op2">120-129 </string>
+    <string name="PP7op3">130-139 </string>
+    <string name="PP7op4">140-159 </string>
+    <string name="PP7op5">>=160 </string>
 
 </resources>

@@ -32,6 +32,10 @@ public class IntSerBack extends IntentService implements SensorEventListener, St
     private static final String TEXT_NUM_STEPS = "Numero de pasos realizados: ";
     private static int numSteps;
 
+    public static boolean bandera=false;
+
+
+
     @Override
     protected void onHandleIntent(Intent intent) {
 //sensorrrrrr de  contar pasossssssssssssss
@@ -108,6 +112,8 @@ public class IntSerBack extends IntentService implements SensorEventListener, St
     public static void start() {//accedo al contador desde la pantalla que muestra los numero
         band = true;
     }
+
+
 
 }
 

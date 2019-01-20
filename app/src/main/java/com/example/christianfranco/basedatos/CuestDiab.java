@@ -129,4 +129,11 @@ public class CuestDiab extends AppCompatActivity {
         return res;
     }
 
+
+    public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
+            Intent menu = new Intent(CuestDiab.this, Menu.class);
+            startActivity(menu);
+            finish();
+
+    }
 }

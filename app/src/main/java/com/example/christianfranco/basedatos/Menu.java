@@ -15,7 +15,7 @@ import android.widget.ImageButton;
 import com.example.christianfranco.basedatos.ContadordePasos.IntSerBack;
 
 public class Menu extends AppCompatActivity {
-    ImageButton imaInfo,imaLOut,imaAgregar,imaPasos,imaConsulta,imaLogros,imaStatus;
+    ImageButton imaInfo, imaLOut, imaAgregar, imaPasos, imaConsulta, imaLogros, imaStatus, imaCuestDiabetes, imaCuestPres;
     SharedPreferences sp;
     LocationManager locationManager;
 
@@ -25,13 +25,15 @@ public class Menu extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);//para que no bote error
 
-        imaInfo=(ImageButton)findViewById(R.id.imaInfo);
-        imaAgregar=(ImageButton)findViewById(R.id.imaAgregar);
-        imaConsulta=(ImageButton)findViewById(R.id.imaConsulta);
-        imaLOut=(ImageButton)findViewById(R.id.imaLOut);
-        imaLogros=(ImageButton)findViewById(R.id.imaLogros);
-        imaPasos=(ImageButton)findViewById(R.id.imaPasos);
-        imaStatus=(ImageButton)findViewById(R.id.imaStatus);
+        imaInfo = (ImageButton) findViewById(R.id.imaInfo);
+        imaAgregar = (ImageButton) findViewById(R.id.imaAgregar);
+        imaConsulta = (ImageButton) findViewById(R.id.imaConsulta);
+        imaLOut = (ImageButton) findViewById(R.id.imaLOut);
+        imaLogros = (ImageButton) findViewById(R.id.imaLogros);
+        imaPasos = (ImageButton) findViewById(R.id.imaPasos);
+        imaStatus = (ImageButton) findViewById(R.id.imaStatus);
+        imaCuestDiabetes = (ImageButton) findViewById(R.id.imaCuestDiabetes);
+        imaCuestPres = (ImageButton) findViewById(R.id.imaCuestPres);
 
 
         //inicio el servicio de background
@@ -43,7 +45,7 @@ public class Menu extends AppCompatActivity {
         imaAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent add = new Intent(Menu.this,AgregarDato.class);
+                Intent add = new Intent(Menu.this, AgregarDato.class);
                 startActivity(add);
                 finish();
             }
@@ -52,7 +54,7 @@ public class Menu extends AppCompatActivity {
         imaConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ver = new Intent(Menu.this,Consulta.class);
+                Intent ver = new Intent(Menu.this, Consulta.class);
                 //Intent ver = new Intent(Menu.this,Menu.class);//prueba borrarrrrrrrrrrrrrr
                 startActivity(ver);
                 finish();
@@ -63,7 +65,7 @@ public class Menu extends AppCompatActivity {
         imaPasos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent verdatos = new Intent(Menu.this, Actividad.class);
+                // Intent verdatos = new Intent(Menu.this, Actividad.class);
                 //startActivity(verdatos);
                 //finish();
                 comprobar();
@@ -73,9 +75,8 @@ public class Menu extends AppCompatActivity {
         imaLOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  sp.edit().putBoolean("logged", false).apply();
-               // Intent salir = new Intent(Menu.this, MainActivity.class);
-                Intent salir = new Intent(Menu.this, CuestDiab.class);
+                sp.edit().putBoolean("logged", false).apply();
+                Intent salir = new Intent(Menu.this,MainActivity.class);
                 startActivity(salir);
                 finish();//evito que regresen al presionar el boto del celular
             }
@@ -84,7 +85,7 @@ public class Menu extends AppCompatActivity {
         imaInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go = new Intent(Menu.this,Informacion.class);
+                Intent go = new Intent(Menu.this, Informacion.class);
                 startActivity(go);
                 finish();
             }
@@ -93,7 +94,7 @@ public class Menu extends AppCompatActivity {
         imaStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go = new Intent(Menu.this,Status.class);
+                Intent go = new Intent(Menu.this, Status.class);
                 startActivity(go);
                 finish();
             }
@@ -101,23 +102,43 @@ public class Menu extends AppCompatActivity {
         imaLogros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go = new Intent(Menu.this,Logros.class);
+                Intent go = new Intent(Menu.this, Logros.class);
+                startActivity(go);
+                finish();
+            }
+        });
+
+        imaCuestDiabetes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go = new Intent(Menu.this, CuestDiab.class);
+                startActivity(go);
+                finish();
+            }
+        });
+
+        imaCuestPres.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go = new Intent(Menu.this, CuestiPresion.class);
                 startActivity(go);
                 finish();
             }
         });
     }
+
     //boton fisico
     @Override
     public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
         finish();
     }
 
-    public void comprobar(){
-        if(!checkLocation()){
+    public void comprobar() {
+        if (!checkLocation()) {
             return;
-        }else{
-            Intent op = new Intent(Menu.this,Actividad.class);
+        } else {
+            //Intent op = new Intent(Menu.this,Actividad.class);
+            Intent op = new Intent(Menu.this, Actividad.class);
             startActivity(op);
             finish();
         }

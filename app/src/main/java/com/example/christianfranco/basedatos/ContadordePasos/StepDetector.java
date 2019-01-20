@@ -1,13 +1,16 @@
 package com.example.christianfranco.basedatos.ContadordePasos;
 
 public class StepDetector {
-
     private static final int ACCEL_RING_SIZE = 50;
     private static final int VEL_RING_SIZE = 10;
 
+
+    public static int ban;
+    public static int val;//valor para que el contador funcione
+
     // change this threshold according to your sensitivity preferences
     //private static final float STEP_THRESHOLD = 50f;//original
-    private static final float STEP_THRESHOLD = 90f;
+    private static final float STEP_THRESHOLD = 10f;
 
     private static final int STEP_DELAY_NS = 250000000;
 
@@ -54,15 +57,18 @@ public class StepDetector {
         velRingCounter++;
         velRing[velRingCounter % VEL_RING_SIZE] = currentZ;
 
+
         float velocityEstimate = SensorFilter.sum(velRing);
 
-        if (velocityEstimate > STEP_THRESHOLD && oldVelocityEstimate <= STEP_THRESHOLD
-                && (timeNs - lastStepTimeNs > STEP_DELAY_NS)) {
-            listener.step(timeNs);
-            lastStepTimeNs = timeNs;
+        if (velocityEstimate > STEP_THRESHOLD && oldVelocityEstimate <= STEP_THRESHOLD && (timeNs - lastStepTimeNs > STEP_DELAY_NS)) {
+            ban++;
+            if(ban==val) {
+                listener.step(timeNs);
+                lastStepTimeNs = timeNs;
+                ban=0;
+            }
         }
         oldVelocityEstimate = velocityEstimate;
     }
-
 
 }

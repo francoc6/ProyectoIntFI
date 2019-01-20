@@ -21,9 +21,9 @@ import lecho.lib.hellocharts.view.LineChartView;
 public class Grafica extends AppCompatActivity {
 
     LineChartView lineChartView;
-    ArrayList<String> Datos= new ArrayList<>();
-    ArrayList<String> axisData= new ArrayList<>();
-    ArrayList<Float> yAxisData= new ArrayList<>();
+    ArrayList<String> Datos= new ArrayList<String>();
+    ArrayList<String> axisData= new ArrayList<String>();
+    ArrayList<Float> yAxisData= new ArrayList<Float>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class Grafica extends AppCompatActivity {
         List lines = new ArrayList();
         lines.add(line);
         line.setFormatter(new SimpleLineChartValueFormatter(2));
-      //  line.setHasLabelsOnlyForSelected(true);
+        //  line.setHasLabelsOnlyForSelected(true);
         line.setHasLabels(true);
 
 
@@ -79,7 +79,7 @@ public class Grafica extends AppCompatActivity {
         data.setAxisYLeft(yAxis);
 
         yAxis.setTextColor(Color.parseColor("#03A9F4"));
-       // yAxis.setTextColor(R.color.ROJO);
+        // yAxis.setTextColor(R.color.ROJO);
         yAxis.setTextSize(16);
         yAxis.setName("Valores");
         yAxis.setFormatter(new SimpleAxisValueFormatter(2));

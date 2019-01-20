@@ -115,11 +115,12 @@ public class Status extends AppCompatActivity {
             res.next();
             Float talla=Float.valueOf(res.getString("Talla"));
             res.close();
-            Float peso=Float.valueOf(resul.get(6));
-            Float re=peso/(talla*talla);
-            if(resul.get(6).equals("Sin registro")){
+
+            if(resul.get(6).equals("Sin Registro")){
                 IMR.setText("No se ha ingresado peso");
             }else{
+                Float peso=Float.valueOf(resul.get(6));
+                Float re=peso/(talla*talla);
                 IMR.setText(re.toString());
             }
 
