@@ -46,7 +46,7 @@ public class AgregarDato extends AppCompatActivity {
 
         opciones = (Spinner) findViewById(R.id.opcionspinner);
 
-        String[] variables = {"Glucosa-(mg/dl):", "Hemoglobina-(%):", "Colesterol-(mg/dl):", "Trigliceridos-(mg/dl):", "Colesterol HDL-(mg/dl):", "Colesterol LDL-(mg/dl):", "Peso-(Kg):", "Circunfernecia cintura-(cm):", "Circunferencia cadera-(cm):", "P Arterial Sistolica/Diastolica-(mmHg):"};
+        String[] variables = {"Glucosa-(mg/dl):", "Hemoglobina-(%):", "Colesterol-(mg/dl):", "Trigliceridos-(mg/dl):", "Colesterol HDL-(mg/dl):", "Colesterol LDL-(mg/dl):", "Peso-(Kg):", "Circunfernecia cintura-(cm):", "Circunferencia cadera-(cm):"};
 
         opciones.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, variables));
         usuariognr = getSharedPreferences("Guardarusuario", MODE_PRIVATE);//instancio el objeto para obtener usuario
@@ -61,11 +61,8 @@ public class AgregarDato extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Ingrese un valor", Toast.LENGTH_SHORT).show();
                 } else if (validar(parts[0], dato.getText().toString()) != "") {
                     Toast.makeText(getApplicationContext(), validar(parts[0], dato.getText().toString()), Toast.LENGTH_SHORT).show();
-                } else if (parts[0].equals("P Arterial Sistolica/Diastolica")) {
-                    if (valpresion(dato.getText().toString()) != "") {
-                        Toast.makeText(getApplicationContext(), valpresion(dato.getText().toString()), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
+                }
+                else {
                     agregardato(obtenerindice(parts[0]), usuario, Float.valueOf(dato.getText().toString()).toString(), fecha);//para facilitar la graficacion
                     dato.setText("");
                 }
@@ -75,7 +72,13 @@ public class AgregarDato extends AppCompatActivity {
         btnaddpresion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (diastolica.getText().toString().equals("")|sistolica.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Ingrese un valor", Toast.LENGTH_SHORT).show();
+                }else if(valpresion()==""){
+                    agregardato(10, usuario, Float.valueOf(sistolica.getText().toString()).toString()+"/"+Float.valueOf(sistolica.getText().toString()).toString(), fecha);
+                }else{
+                    Toast.makeText(getApplicationContext(),valpresion(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -177,9 +180,9 @@ public class AgregarDato extends AppCompatActivity {
         return res;
     }
 
-    public String valpresion(String v) {
+    public String valpresion() {
         String res="";
-        if (Float.valueOf(diastolica.getText().toString()) == 0 | Float.valueOf(sistolica.getText().toString()) == 0) {
+        if (Float.valueOf(diastolica.getText().toString()) != 0 | Float.valueOf(sistolica.getText().toString()) != 0) {
             if (Float.valueOf(sistolica.getText().toString()) < 10 | Float.valueOf(sistolica.getText().toString()) > 300) {
                 res = "Por favor ingrese Sistolica entre 10 y 300";
             }
