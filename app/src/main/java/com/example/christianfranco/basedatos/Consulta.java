@@ -55,21 +55,25 @@ public class Consulta extends AppCompatActivity {
                 }
             }
         });
+
         grafico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //veo la seleccion del usuario
                 String selec=datoaconsultar.getSelectedItem().toString();
-                datos=respuesta( AgregarDato.obtenerindice(selec),usuario);
-                if(ban==false) {
-                    if (datos.isEmpty()) {//si no hay elementos que presentar, no se muestra el dialogo
-                        Toast.makeText(getApplicationContext(), "No hay datos por presentar", Toast.LENGTH_SHORT).show();
-                    } else {//por el contrario, se muestra el dialogo con todos los resultados
-                        Intent go = new Intent(Consulta.this, Grafica.class);
-                        startActivity(go);
+                if(selec.equals("P Arterial Sistolica/Diastolica")) {
+                    Toast.makeText(getApplicationContext(), "No se puede mostrar presion de  forma grafica, use la opcion de  texto", Toast.LENGTH_SHORT).show();
+                }else{
+                    datos = respuesta(AgregarDato.obtenerindice(selec), usuario);
+                    if (ban == false) {
+                        if (datos.isEmpty()) {//si no hay elementos que presentar, no se muestra el dialogo
+                            Toast.makeText(getApplicationContext(), "No hay datos por presentar", Toast.LENGTH_SHORT).show();
+                        } else {//por el contrario, se muestra el dialogo con todos los resultados
+                            Intent go = new Intent(Consulta.this, Grafica.class);
+                            startActivity(go);
+                        }
                     }
                 }
-
             }
         });
     }

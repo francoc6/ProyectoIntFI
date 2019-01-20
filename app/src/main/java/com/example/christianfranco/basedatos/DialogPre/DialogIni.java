@@ -25,7 +25,7 @@ public class DialogIni extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_formulario_ini, container, false);
 
-        RESPUESTA=(TextView)view.findViewById(R.id.RESPUESTA);
+        RESPUESTA = (TextView) view.findViewById(R.id.RESPUESTA);
         RESPUESTA.setText(Status.respuestaG);
         return view;
     }

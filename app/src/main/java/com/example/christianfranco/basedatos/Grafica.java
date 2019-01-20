@@ -34,11 +34,20 @@ public class Grafica extends AppCompatActivity {
         lineChartView.getChartData();
 
 
-        Datos=Consulta.datos;//obtengo los datos de la base
-        for(int i=0;i<Datos.size();i++){
-            String[] parts = Datos.get(i).split("     ");
-            axisData.add(parts[0]);
-            yAxisData.add(Float.valueOf(parts[1]));
+        Datos=Consulta.datos;//obtengo los datos de la clase consulta de la base
+
+        if(Datos.size()<=10) {//si solo hay 10 o menos datos se los carga
+            for (int i = 0; i < Datos.size(); i++) {
+                String[] parts = Datos.get(i).split("     ");
+                axisData.add(parts[0]);
+                yAxisData.add(Float.valueOf(parts[1]));
+            }
+        }else {//si hay mas de 10, toma los ultomos 10 agregados
+            for (int i =Datos.size()-10; i < Datos.size(); i++) {
+                String[] parts = Datos.get(i).split("     ");
+                axisData.add(parts[0]);
+                yAxisData.add(Float.valueOf(parts[1]));
+            }
         }
 
         List yAxisValues = new ArrayList();

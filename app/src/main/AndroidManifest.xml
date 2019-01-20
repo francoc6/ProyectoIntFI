@@ -58,8 +58,10 @@
             android:name=".Logros"
             android:screenOrientation="portrait" />
         <activity android:name=".Grafica" />
-        <activity android:name=".CuestDiab" />
-        <activity android:name=".CuestiPresion"></activity>
+        <activity android:name=".CuestDiab"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CuestiPresion"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

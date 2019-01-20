@@ -75,7 +75,7 @@ public class AgregarDato extends AppCompatActivity {
                 if (diastolica.getText().toString().equals("")|sistolica.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Ingrese un valor", Toast.LENGTH_SHORT).show();
                 }else if(valpresion()==""){
-                    agregardato(10, usuario, Float.valueOf(sistolica.getText().toString()).toString()+"/"+Float.valueOf(sistolica.getText().toString()).toString(), fecha);
+                    agregardato(10, usuario, Float.valueOf(sistolica.getText().toString()).toString()+"/"+Float.valueOf(diastolica.getText().toString()).toString(), fecha);
                 }else{
                     Toast.makeText(getApplicationContext(),valpresion(), Toast.LENGTH_SHORT).show();
                 }

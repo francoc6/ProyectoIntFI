@@ -456,7 +456,7 @@ public class Actividad extends AppCompatActivity implements LocationListener {
     public int obtenervalor() {
         int r = 0;
         SharedPreferences data = getSharedPreferences("Valor", getApplicationContext().MODE_PRIVATE);//instancio el objeto para obtener usuario
-        r = (data.getInt("1", 2));//OOOJOOOOOOOOOOOOOOOO IMPORTANTEEEEE!!!!!!!!!!!!!!!!!!! EL VALOR DEFAULT
+        r = (data.getInt("1", 2));//OOOJOOOOOOOOOOOOOOOO IMPORTANTEEEEE!!!!!!!!!!!!!!!!!!! EL VALOR DEFAULT es 2, funciona bien
         return r;
     }
 
