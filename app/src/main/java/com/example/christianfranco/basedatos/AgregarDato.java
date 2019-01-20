@@ -23,23 +23,27 @@ import java.util.TimeZone;
 
 
 public class AgregarDato extends AppCompatActivity {
-    Button agregar, cancelar;
+    Button agregar;
     Spinner opciones;
-    EditText dato;
+    EditText dato, sistolica, diastolica;
     Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("America/Guayaquil"));
     int dia = calendarNow.get(Calendar.DAY_OF_MONTH);
     int mes = 1 + calendarNow.get(Calendar.MONTH);
     int anio = calendarNow.get(Calendar.YEAR);
     String fecha = dia + "/" + mes + "/" + anio;
     SharedPreferences usuariognr;//lo uso para obtener el usuario almacenado
+    Button btnaddpresion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_dato);
         agregar = (Button) findViewById(R.id.AgregarBtn);
-        cancelar = (Button) findViewById(R.id.Cancelaradd);
+        btnaddpresion =(Button)findViewById(R.id.btnaddpresion);
         dato = (EditText) findViewById(R.id.adddato);
+        sistolica = (EditText) findViewById(R.id.sistolica);
+        diastolica = (EditText) findViewById(R.id.diastolica);
+
         opciones = (Spinner) findViewById(R.id.opcionspinner);
 
         String[] variables = {"Glucosa-(mg/dl):", "Hemoglobina-(%):", "Colesterol-(mg/dl):", "Trigliceridos-(mg/dl):", "Colesterol HDL-(mg/dl):", "Colesterol LDL-(mg/dl):", "Peso-(Kg):", "Circunfernecia cintura-(cm):", "Circunferencia cadera-(cm):", "P Arterial Sistolica/Diastolica-(mmHg):"};
@@ -67,14 +71,14 @@ public class AgregarDato extends AppCompatActivity {
                 }
             }
         });
-        cancelar.setOnClickListener(new View.OnClickListener() {
+
+        btnaddpresion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent menu = new Intent(AgregarDato.this, Menu.class);
-                startActivity(menu);
-                finish();
+
             }
         });
+
     }
 
     Conectar contacto = new Conectar();
@@ -174,21 +178,16 @@ public class AgregarDato extends AppCompatActivity {
     }
 
     public String valpresion(String v) {
-        String[] parts = v.split(".");
-        Float x, y;
-        String res = "";
-
-        if (parts.length != 0) {
-            x = Float.valueOf(parts[0]);
-            y = Float.valueOf(parts[1]);
-            if (x < 10 | x > 300) {
+        String res="";
+        if (Float.valueOf(diastolica.getText().toString()) == 0 | Float.valueOf(sistolica.getText().toString()) == 0) {
+            if (Float.valueOf(sistolica.getText().toString()) < 10 | Float.valueOf(sistolica.getText().toString()) > 300) {
                 res = "Por favor ingrese Sistolica entre 10 y 300";
             }
-            if (y < 10 | y > 300) {
+            if (Float.valueOf(diastolica.getText().toString()) < 10 | Float.valueOf(diastolica.getText().toString()) > 300) {
                 res = "Por favor ingrese Diastolica entre 10 y 300";
             }
         } else {
-            res = "Por favor ingrese ambos valores separados por un punto (.)";
+            res = "Por favor ingrese ambos valores.";
         }
         return res;
     }

@@ -145,7 +145,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:ems="10"
-                android:hint="Entre 10 y 90"
+                android:hint="Entre 18 y 64"
                 android:inputType="number" />
 
             <TextView
