@@ -1,7 +1,7 @@
 package com.example.christianfranco.basedatos;
 
 //se van a agregar los datos con id segun el tipo: Glucosa 1, Hemoglobina 2,Colesterol 3,Trigliceridos 4, Colesterol HDL 5
-// Colesterol LDL 6, Peso 7, Circunfernecia cintura 8, Circunferencia cadera 9, P. Arteriar  sistolica/diastolica 10
+// Colesterol LDL 6, Peso 7, Circunfernecia cintura 8, P. Arteriar  sistolica/diastolica 9
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -75,7 +75,7 @@ public class AgregarDato extends AppCompatActivity {
                 if (diastolica.getText().toString().equals("")|sistolica.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(), "Ingrese un valor", Toast.LENGTH_SHORT).show();
                 }else if(valpresion()==""){
-                    agregardato(10, usuario, Float.valueOf(sistolica.getText().toString()).toString()+"/"+Float.valueOf(diastolica.getText().toString()).toString(), fecha);
+                    agregardato(9, usuario, Float.valueOf(sistolica.getText().toString()).toString()+"/"+Float.valueOf(diastolica.getText().toString()).toString(), fecha);
                 }else{
                     Toast.makeText(getApplicationContext(),valpresion(), Toast.LENGTH_SHORT).show();
                 }
@@ -129,11 +129,8 @@ public class AgregarDato extends AppCompatActivity {
         if (d.equals("Circunfernecia cintura")) {
             r = 8;
         }
-        if (d.equals("Circunferencia cadera")) {
-            r = 9;
-        }
         if (d.equals("P Arterial Sistolica/Diastolica")) {
-            r = 10;
+            r = 9;
         }
         return r;
     }
@@ -172,9 +169,6 @@ public class AgregarDato extends AppCompatActivity {
             res = "Por favor ingrese un valor entre 20 y 500";
         }
         if (u.equals("Circunfernecia cintura") & (d < 10 | d > 500)) {
-            res = "Por favor ingrese un valor entre 10 y 500";
-        }
-        if (u.equals("Circunferencia cadera") & (d < 10 | d > 500)) {
             res = "Por favor ingrese un valor entre 10 y 500";
         }
         return res;

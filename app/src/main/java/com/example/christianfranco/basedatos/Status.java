@@ -19,11 +19,11 @@ import java.util.ArrayList;
 
 public class Status extends AppCompatActivity {
     //TextView PGR,PG,Ppresion,Ppeso,TGR,TG,Tpresion,Tpeso;
-    TextView GT,HT,CT,TT,COLT,COLLT,PEST,CIRT,CIRCT,PAT,IMT;
-    TextView GR,HR,CR,TR,COLR,COLLR,PESR,CIRR,CIRCR,PAR,IMR;
+    TextView GT, HT, CT, TT, COLT, COLLT, PEST, CIRT, PAT, IMT;
+    TextView GR, HR, CR, TR, COLR, COLLR, PESR, CIRR, PAR, IMR;
 
     SharedPreferences usuariognr;//lo uso para obtener el usuario almacenado
-    Boolean ban=false;
+    Boolean ban = false;
 
     ArrayList<String> res = new ArrayList<String>();
 
@@ -39,33 +39,33 @@ public class Status extends AppCompatActivity {
         final DialogIni dialog = new DialogIni();
 
 
-        GT=(TextView)findViewById(R.id.GT);
-        HT=(TextView)findViewById(R.id.HT);
-        CT=(TextView)findViewById(R.id.CT);
-        TT=(TextView)findViewById(R.id.TT);
-        COLT=(TextView)findViewById(R.id.COLT);
-        COLLT=(TextView)findViewById(R.id.COLLT);
-        PEST=(TextView)findViewById(R.id.PEST);
-        CIRT=(TextView)findViewById(R.id.CIRT);
-        CIRCT=(TextView)findViewById(R.id.CIRCT);
-        PAT=(TextView)findViewById(R.id.PAT);
-        IMT=(TextView)findViewById(R.id.IMT);
+        GT = (TextView) findViewById(R.id.GT);
+        HT = (TextView) findViewById(R.id.HT);
+        CT = (TextView) findViewById(R.id.CT);
+        TT = (TextView) findViewById(R.id.TT);
+        COLT = (TextView) findViewById(R.id.COLT);
+        COLLT = (TextView) findViewById(R.id.COLLT);
+        PEST = (TextView) findViewById(R.id.PEST);
+        CIRT = (TextView) findViewById(R.id.CIRT);
+        PAT = (TextView) findViewById(R.id.PAT);
+        IMT = (TextView) findViewById(R.id.IMT);
 
-        GR=(TextView)findViewById(R.id.GR);
-        HR=(TextView)findViewById(R.id.HR);
-        CR=(TextView)findViewById(R.id.CR);
-        TR=(TextView)findViewById(R.id.TR);
-        COLR=(TextView)findViewById(R.id.COLR);
-        COLLR=(TextView)findViewById(R.id.COLLR);
-        PESR=(TextView)findViewById(R.id.PESR);
-        CIRR=(TextView)findViewById(R.id.CIRR);
-        CIRCR=(TextView)findViewById(R.id.CIRCR);
-        PAR=(TextView)findViewById(R.id.PAR);
-        IMR=(TextView)findViewById(R.id.IMR);
+        GR = (TextView) findViewById(R.id.GR);
+        HR = (TextView) findViewById(R.id.HR);
+        CR = (TextView) findViewById(R.id.CR);
+        TR = (TextView) findViewById(R.id.TR);
+        COLR = (TextView) findViewById(R.id.COLR);
+        COLLR = (TextView) findViewById(R.id.COLLR);
+        PESR = (TextView) findViewById(R.id.PESR);
+        CIRR = (TextView) findViewById(R.id.CIRR);
+        PAR = (TextView) findViewById(R.id.PAR);
+        IMR = (TextView) findViewById(R.id.IMR);
 
-        res=obtenerdatos(usuario);
-        if(ban==false) {
+        res = obtenerdatos(usuario);
+
+        if (ban == false) {
             color();
+            //asignarcolores(String v, float r, String g);
         }
 
         GT.setOnClickListener(new View.OnClickListener() {
@@ -78,24 +78,25 @@ public class Status extends AppCompatActivity {
     }
 
 
-//obtengo los ultimos valores de las variables del usuario
+    //obtengo los ultimos valores de las variables del usuario
     Conectar conectar = new Conectar();
-    public  ArrayList <String> obtenerdatos(String u){
-        ArrayList<String> resul=new ArrayList<>();
-        ArrayList<String> temp=new ArrayList<>();
+
+    public ArrayList<String> obtenerdatos(String u) {
+        ArrayList<String> resul = new ArrayList<>();
+        ArrayList<String> temp = new ArrayList<>();
         try {
             Statement pedir = conectar.conectarabase().createStatement();
             ResultSet res = null;
-            for (int x=1;x<11;x++){//ya que hay 10 variables
-                res = pedir.executeQuery("select Valor from Variables_db where Usuario='"+u+"' AND Tipo='"+x+"'");
+            for (int x = 1; x < 10; x++) {//ya que hay 9 variables
+                res = pedir.executeQuery("select Valor from Variables_db where Usuario='" + u + "' AND Tipo='" + x + "'");
                 while (res.next()) {
                     temp.add(res.getString("Valor"));
                 }
-                if(temp.size()==0){
+                if (temp.size() == 0) {
                     resul.add("Sin Registro");
-                }else{
-                   // resul.add(res.getString(res.getFetchSize()));
-                    resul.add(temp.get(temp.size()-1));
+                } else {
+                    // resul.add(res.getString(res.getFetchSize()));
+                    resul.add(temp.get(temp.size() - 1));
                 }
                 temp.clear();
             }
@@ -108,26 +109,25 @@ public class Status extends AppCompatActivity {
             COLLR.setText(resul.get(5));
             PESR.setText(resul.get(6));
             CIRR.setText(resul.get(7));
-            CIRCR.setText(resul.get(8));
-            PAR.setText(resul.get(9));
+            PAR.setText(resul.get(8));
 
-            res=pedir.executeQuery("select Talla from RegistroUsuarios_db where Usuario='"+u+"'");
+            res = pedir.executeQuery("select Talla from RegistroUsuarios_db where Usuario='" + u + "'");
             res.next();
-            Float talla=Float.valueOf(res.getString("Talla"));
+            Float talla = Float.valueOf(res.getString("Talla"));
             res.close();
 
-            if(resul.get(6).equals("Sin Registro")){
+            if (resul.get(6).equals("Sin Registro")) {
                 IMR.setText("No se ha ingresado peso");
-            }else{
-                Float peso=Float.valueOf(resul.get(6));
-                Float re=peso/(talla*talla);
+            } else {
+                Float peso = Float.valueOf(resul.get(6));
+                Float re = peso / (talla * talla);
                 IMR.setText(re.toString());
             }
 
         } catch (Exception e) {
-            ban=true;
-            Toast.makeText(getApplicationContext(),"Error de red.", Toast.LENGTH_SHORT).show();
-            Intent go= new Intent(Status.this, Menu.class);
+            ban = true;
+            Toast.makeText(getApplicationContext(), "Error de red.", Toast.LENGTH_SHORT).show();
+            Intent go = new Intent(Status.this, Menu.class);
             startActivity(go);
             finish();
         }
@@ -135,23 +135,112 @@ public class Status extends AppCompatActivity {
     }
 
     //comparar los datos del usuario con referencias       FALTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    public void referencias (){
+    public void referencias() {
 
     }
 
 
-//seteo el color del background y el mensaje del dialogo
-    public void color (){
-        if (!(res.get(0).equals("Sin Registro"))){
+    //seteo el color del background y el mensaje del dialogo
+    public void color() {
+        if (!(res.get(0).equals("Sin Registro"))) {
             if (Float.valueOf(res.get(0)) > 200) {//si es mayor a 200 es DIABETES
                 GT.setBackgroundResource(R.color.ROJO);
-                respuestaG="Diabetes";
+                respuestaG = "Diabetes";
             } else if (144 < Float.valueOf(res.get(0)) && Integer.valueOf(res.get(0)) < 149) {//entre 144 y 149 es PREDIABETES
                 GT.setBackgroundResource(R.color.AMARILLO);
-                respuestaG="PRE-DIABETES";
+                respuestaG = "PRE-DIABETES";
             } else {//Normal
                 GT.setBackgroundResource(R.color.VERDE);
-                respuestaG="Normal";
+                respuestaG = "Normal";
+            }
+        }
+    }
+
+
+    public void asignarcolores(String v, float r, String g) {
+        if (v.equals(1)) {//Glucosa
+            if (Float.valueOf(res.get(0)) < 100) {//verde
+                GT.setBackgroundResource(R.color.VERDE);
+            } else {//rojo
+                GT.setBackgroundResource(R.color.ROJO);
+            }
+        } else if (v.equals(2)) {//hemoglobina
+            if (Float.valueOf(res.get(1)) < 5.7) {//verde
+                HT.setBackgroundResource(R.color.VERDE);
+            } else {//rojo
+                HT.setBackgroundResource(R.color.ROJO);
+            }
+
+        } else if (v.equals(3)) {//COLESTEROL
+            if (Float.valueOf(res.get(2)) < 200) {//verde
+                CT.setBackgroundResource(R.color.VERDE);
+            } else {//rojo
+                CT.setBackgroundResource(R.color.ROJO);
+            }
+        } else if (v.equals(4)) {//trigliceridos
+            if (Float.valueOf(res.get(3)) < 100) {//verde
+                TT.setBackgroundResource(R.color.VERDE);
+            } else {//rojo
+                TT.setBackgroundResource(R.color.ROJO);
+            }
+        } else if (v.equals(5)) {//colesterol hdl
+            if (g.equals("Hombre")) {
+                if (Float.valueOf(res.get(4)) >= 40) {//verde
+                    COLT.setBackgroundResource(R.color.VERDE);
+                } else {//rojo
+                    COLT.setBackgroundResource(R.color.ROJO);
+                }
+            } else {
+                if (Float.valueOf(res.get(4)) >= 50) {//verde
+                    COLT.setBackgroundResource(R.color.VERDE);
+                } else {//rojo
+                    COLT.setBackgroundResource(R.color.ROJO);
+                }
+            }
+        } else if (v.equals(6)) {//colesterol LDL
+            if (Float.valueOf(res.get(5)) < 130) {//VERDE
+                COLLT.setBackgroundResource(R.color.VERDE);
+            } else {//ROJO
+                COLLT.setBackgroundResource(R.color.ROJO);
+            }
+        } else if (v.equals(7)) {
+
+        } else if (v.equals(8)) {//CIRCUNFERENCIA CINTURA
+            if (g.equals("Hombre")) {
+                if (Float.valueOf(res.get(7)) < 94) {//VERDE
+                    CIRT.setBackgroundResource(R.color.VERDE);
+                } else if (Float.valueOf(res.get(7)) >= 94 && Float.valueOf(res.get(7)) <= 102) {//AMARILLO
+                    CIRT.setBackgroundResource(R.color.AMARILLO);
+                } else if (r > 102) {//ROJO
+                    CIRT.setBackgroundResource(R.color.ROJO);
+                }
+            } else {
+                if (Float.valueOf(res.get(7)) < 80) {//VERDE
+                    CIRT.setBackgroundResource(R.color.VERDE);
+                } else if (Float.valueOf(res.get(7)) >= 80 && Float.valueOf(res.get(7)) <= 88) {//AMARILLO
+                    CIRT.setBackgroundResource(R.color.AMARILLO);
+                } else if (Float.valueOf(res.get(7)) > 88) {//ROJO
+                    CIRT.setBackgroundResource(R.color.ROJO);
+                }
+            }
+        } else if (v.equals(9)) {//NO HAY
+
+        } else if (v.equals(10)) {
+            String[] parts = res.get(9).split("/");//para tomar solo la palabra y no la unidad lo llamo con parts[0]
+            if (Float.valueOf(parts[0]) < 120 && Float.valueOf(parts[1]) < 80) {//verde
+                PAT.setBackgroundResource(R.color.VERDE);
+            } else if (Float.valueOf(parts[0]) > 120 && Float.valueOf(parts[0]) < 129 && Float.valueOf(parts[1]) < 80) {//amarillo
+                PAT.setBackgroundResource(R.color.AMARILLO);
+            } else if ((Float.valueOf(parts[0]) > 130) | Float.valueOf(parts[1]) > 80) {//rojo
+                PAT.setBackgroundResource(R.color.ROJO);
+            }
+        } else if (v.equals(11)) {//IMC
+            if (r > 18.5 && r < 24.9) {//VERDE
+                IMT.setBackgroundResource(R.color.VERDE);
+            } else if (r >= 25 && r <= 29.9) {//AMARILLO
+                IMT.setBackgroundResource(R.color.AMARILLO);
+            } else if (r >= 30) {//ROJO
+                IMT.setBackgroundResource(R.color.ROJO);
             }
         }
     }
@@ -160,7 +249,7 @@ public class Status extends AppCompatActivity {
     //boton fisico
     @Override
     public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
-        Intent menu = new Intent(Status.this,Menu.class);
+        Intent menu = new Intent(Status.this, Menu.class);
         startActivity(menu);
         finish();
     }

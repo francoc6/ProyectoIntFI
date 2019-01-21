@@ -329,7 +329,7 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         if (!yasehizo) {//para que solo lo haga al iniciar la pantalla
             if (location.getLongitude() != 0 && location.getLatitude() != 0) {
                 guardatos(tvLati, tvLongi);
-                //  Toast.makeText(getApplicationContext(), "Se obtuvo posicion " + tvLati + " " + tvLongi, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Se obtuvo posicion " + tvLati + " " + tvLongi, Toast.LENGTH_SHORT).show();
                 getWeatherForCurrentLocation(tvLati, tvLongi);//inicio metodo para obtener clima con la posicion
                 //onDestroy();
             }
@@ -399,7 +399,7 @@ public class Actividad extends AppCompatActivity implements LocationListener {
     public void ObtenerDatos(WeatherDataModel data) {
         temperatura = data.getTemperature();
         ciudad = data.getCity();
-        // Toast.makeText(getApplicationContext(),temperatura+" y "+ciudad, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),temperatura+" y "+ciudad, Toast.LENGTH_SHORT).show();
         SharedPreferences keepdata = getSharedPreferences("Clima", getApplicationContext().MODE_PRIVATE);
         SharedPreferences.Editor editor = keepdata.edit();
         editor.putString("Temperatura", temperatura);
