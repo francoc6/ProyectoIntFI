@@ -21,6 +21,8 @@ public class Status extends AppCompatActivity {
     //TextView PGR,PG,Ppresion,Ppeso,TGR,TG,Tpresion,Tpeso;
     TextView GT, HT, CT, TT, COLT, COLLT, PEST, CIRT, PAT, IMT;
     TextView GR, HR, CR, TR, COLR, COLLR, PESR, CIRR, PAR, IMR;
+    String g;
+    Float imc;
 
     SharedPreferences usuariognr;//lo uso para obtener el usuario almacenado
     Boolean ban = false;
@@ -61,11 +63,11 @@ public class Status extends AppCompatActivity {
         PAR = (TextView) findViewById(R.id.PAR);
         IMR = (TextView) findViewById(R.id.IMR);
 
-        res = obtenerdatos(usuario);
+        res = obtenerdatos(usuario);//se obtienen todas las variables y el genero del usuario
 
         if (ban == false) {
-            color();
-            //asignarcolores(String v, float r, String g);
+            //color();
+            asignarcolores(g);
         }
 
         GT.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +102,10 @@ public class Status extends AppCompatActivity {
                 }
                 temp.clear();
             }
+
+            res=pedir.executeQuery("select Genero from RegistroUsuarios_db where Usuario='" + u + "'");
+            res.next();
+            g=res.getString("Genero");
             res.close();
             GR.setText(resul.get(0));
             HR.setText(resul.get(1));
@@ -121,6 +127,7 @@ public class Status extends AppCompatActivity {
             } else {
                 Float peso = Float.valueOf(resul.get(6));
                 Float re = peso / (talla * talla);
+                imc=re;
                 IMR.setText(re.toString());
             }
 
@@ -157,33 +164,33 @@ public class Status extends AppCompatActivity {
     }
 
 
-    public void asignarcolores(String v, float r, String g) {
-        if (v.equals(1)) {//Glucosa
+    public void asignarcolores( String g) {
+        //Glucosa
             if (Float.valueOf(res.get(0)) < 100) {//verde
                 GT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 GT.setBackgroundResource(R.color.ROJO);
             }
-        } else if (v.equals(2)) {//hemoglobina
+       //hemoglobina
             if (Float.valueOf(res.get(1)) < 5.7) {//verde
                 HT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 HT.setBackgroundResource(R.color.ROJO);
             }
 
-        } else if (v.equals(3)) {//COLESTEROL
+        //COLESTEROL
             if (Float.valueOf(res.get(2)) < 200) {//verde
                 CT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 CT.setBackgroundResource(R.color.ROJO);
             }
-        } else if (v.equals(4)) {//trigliceridos
+        //trigliceridos
             if (Float.valueOf(res.get(3)) < 100) {//verde
                 TT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 TT.setBackgroundResource(R.color.ROJO);
             }
-        } else if (v.equals(5)) {//colesterol hdl
+        //colesterol hdl
             if (g.equals("Hombre")) {
                 if (Float.valueOf(res.get(4)) >= 40) {//verde
                     COLT.setBackgroundResource(R.color.VERDE);
@@ -197,21 +204,21 @@ public class Status extends AppCompatActivity {
                     COLT.setBackgroundResource(R.color.ROJO);
                 }
             }
-        } else if (v.equals(6)) {//colesterol LDL
+        //colesterol LDL
             if (Float.valueOf(res.get(5)) < 130) {//VERDE
                 COLLT.setBackgroundResource(R.color.VERDE);
             } else {//ROJO
                 COLLT.setBackgroundResource(R.color.ROJO);
             }
-        } else if (v.equals(7)) {
 
-        } else if (v.equals(8)) {//CIRCUNFERENCIA CINTURA
+
+        //CIRCUNFERENCIA CINTURA
             if (g.equals("Hombre")) {
                 if (Float.valueOf(res.get(7)) < 94) {//VERDE
                     CIRT.setBackgroundResource(R.color.VERDE);
                 } else if (Float.valueOf(res.get(7)) >= 94 && Float.valueOf(res.get(7)) <= 102) {//AMARILLO
                     CIRT.setBackgroundResource(R.color.AMARILLO);
-                } else if (r > 102) {//ROJO
+                } else if (Float.valueOf(res.get(7)) > 102) {//ROJO
                     CIRT.setBackgroundResource(R.color.ROJO);
                 }
             } else {
@@ -223,10 +230,8 @@ public class Status extends AppCompatActivity {
                     CIRT.setBackgroundResource(R.color.ROJO);
                 }
             }
-        } else if (v.equals(9)) {//NO HAY
-
-        } else if (v.equals(10)) {
-            String[] parts = res.get(9).split("/");//para tomar solo la palabra y no la unidad lo llamo con parts[0]
+            //presion
+            String[] parts = res.get(8).split("/");
             if (Float.valueOf(parts[0]) < 120 && Float.valueOf(parts[1]) < 80) {//verde
                 PAT.setBackgroundResource(R.color.VERDE);
             } else if (Float.valueOf(parts[0]) > 120 && Float.valueOf(parts[0]) < 129 && Float.valueOf(parts[1]) < 80) {//amarillo
@@ -234,15 +239,16 @@ public class Status extends AppCompatActivity {
             } else if ((Float.valueOf(parts[0]) > 130) | Float.valueOf(parts[1]) > 80) {//rojo
                 PAT.setBackgroundResource(R.color.ROJO);
             }
-        } else if (v.equals(11)) {//IMC
-            if (r > 18.5 && r < 24.9) {//VERDE
-                IMT.setBackgroundResource(R.color.VERDE);
-            } else if (r >= 25 && r <= 29.9) {//AMARILLO
-                IMT.setBackgroundResource(R.color.AMARILLO);
-            } else if (r >= 30) {//ROJO
-                IMT.setBackgroundResource(R.color.ROJO);
+
+            if(imc!=0) {
+                if (imc> 18.5 && imc < 24.9) {//VERDE
+                    IMT.setBackgroundResource(R.color.VERDE);
+                } else if (imc >= 25 && imc <= 29.9) {//AMARILLO
+                    IMT.setBackgroundResource(R.color.AMARILLO);
+                } else if (imc >= 30) {//ROJO
+                    IMT.setBackgroundResource(R.color.ROJO);
+                }
             }
-        }
     }
 
 
