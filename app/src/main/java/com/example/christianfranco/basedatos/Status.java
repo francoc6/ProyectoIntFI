@@ -22,7 +22,7 @@ public class Status extends AppCompatActivity {
     TextView GT, HT, CT, TT, COLT, COLLT, PEST, CIRT, PAT, IMT;
     TextView GR, HR, CR, TR, COLR, COLLR, PESR, CIRR, PAR, IMR;
     String g;
-    Float imc;
+    Float imc=0f;
 
     SharedPreferences usuariognr;//lo uso para obtener el usuario almacenado
     Boolean ban = false;
@@ -124,6 +124,7 @@ public class Status extends AppCompatActivity {
 
             if (resul.get(6).equals("Sin Registro")) {
                 IMR.setText("No se ha ingresado peso");
+
             } else {
                 Float peso = Float.valueOf(resul.get(6));
                 Float re = peso / (talla * talla);
@@ -166,31 +167,51 @@ public class Status extends AppCompatActivity {
 
     public void asignarcolores( String g) {
         //Glucosa
+        if(res.get(0).equals("Sin Registro")){
+            //no hace nada, si no hay registro
+        }else {
             if (Float.valueOf(res.get(0)) < 100) {//verde
                 GT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 GT.setBackgroundResource(R.color.ROJO);
             }
+        }
        //hemoglobina
+        if(res.get(1).equals("Sin Registro")){
+
+        }else {
             if (Float.valueOf(res.get(1)) < 5.7) {//verde
                 HT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 HT.setBackgroundResource(R.color.ROJO);
             }
+        }
 
         //COLESTEROL
+
+        if(res.get(2).equals("Sin Registro")){
+
+        }else {
             if (Float.valueOf(res.get(2)) < 200) {//verde
                 CT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 CT.setBackgroundResource(R.color.ROJO);
             }
+        }
         //trigliceridos
+        if(res.get(3).equals("Sin Registro")){
+
+        }else {
             if (Float.valueOf(res.get(3)) < 100) {//verde
                 TT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 TT.setBackgroundResource(R.color.ROJO);
             }
+        }
         //colesterol hdl
+        if(res.get(4).equals("Sin Registro")){
+
+        }else {
             if (g.equals("Hombre")) {
                 if (Float.valueOf(res.get(4)) >= 40) {//verde
                     COLT.setBackgroundResource(R.color.VERDE);
@@ -204,15 +225,22 @@ public class Status extends AppCompatActivity {
                     COLT.setBackgroundResource(R.color.ROJO);
                 }
             }
+        }
         //colesterol LDL
+        if(res.get(5).equals("Sin Registro")){
+
+        }else {
             if (Float.valueOf(res.get(5)) < 130) {//VERDE
                 COLLT.setBackgroundResource(R.color.VERDE);
             } else {//ROJO
                 COLLT.setBackgroundResource(R.color.ROJO);
             }
-
+        }
 
         //CIRCUNFERENCIA CINTURA
+        if(res.get(7).equals("Sin Registro")){
+
+        }else {
             if (g.equals("Hombre")) {
                 if (Float.valueOf(res.get(7)) < 94) {//VERDE
                     CIRT.setBackgroundResource(R.color.VERDE);
@@ -230,7 +258,11 @@ public class Status extends AppCompatActivity {
                     CIRT.setBackgroundResource(R.color.ROJO);
                 }
             }
+        }
             //presion
+        if(res.get(8).equals("Sin Registro")){
+
+        }else {
             String[] parts = res.get(8).split("/");
             if (Float.valueOf(parts[0]) < 120 && Float.valueOf(parts[1]) < 80) {//verde
                 PAT.setBackgroundResource(R.color.VERDE);
@@ -239,6 +271,7 @@ public class Status extends AppCompatActivity {
             } else if ((Float.valueOf(parts[0]) > 130) | Float.valueOf(parts[1]) > 80) {//rojo
                 PAT.setBackgroundResource(R.color.ROJO);
             }
+        }
 
             if(imc!=0) {
                 if (imc> 18.5 && imc < 24.9) {//VERDE
