@@ -122,8 +122,10 @@ public class Registro extends AppCompatActivity {
             while (res.next()) {
                 usr.add(res.getString("Usuario"));
             }
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Revisa tu conexion", Toast.LENGTH_SHORT).show();
+        } catch (SQLException e) {
+           // Toast.makeText(getApplicationContext(), "Revisa tu conexion", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
         // } catch (SQLException e) {
         //     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

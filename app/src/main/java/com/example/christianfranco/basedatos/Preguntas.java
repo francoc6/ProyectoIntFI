@@ -226,7 +226,7 @@ public class Preguntas extends AppCompatActivity {
             pedir.close();//cierro la conexion
             posicion(u, p);//actualizo la tabla de posicion para logros
         } catch (SQLException e) {
-            guardarluego(u, f, h, t, p, PI, PF, Lat, Long, temp, Ciudad);//los almaceno para luego subirlos a la base
+           // guardarluego(u, f, h, t, p, PI, PF, Lat, Long, temp, Ciudad);//los almaceno para luego subirlos a la base
             Toast.makeText(getApplicationContext(), "Hubo un problemqa de red, se guardaran los  datos luego", Toast.LENGTH_SHORT).show();
         }
     }
