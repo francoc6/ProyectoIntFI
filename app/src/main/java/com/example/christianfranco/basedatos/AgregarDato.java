@@ -1,7 +1,10 @@
 package com.example.christianfranco.basedatos;
 
-//se van a agregar los datos con id segun el tipo: Glucosa 1, Hemoglobina 2,Colesterol 3,Trigliceridos 4, Colesterol HDL 5
-// Colesterol LDL 6, Peso 7, Circunfernecia cintura 8, P. Arteriar  sistolica/diastolica 9
+
+/*
+se van a agregar los datos con id segun el tipo: Glucosa 1, Hemoglobina 2,Colesterol 3,Trigliceridos 4, Colesterol HDL 5
+ Colesterol LDL 6, Peso 7, Circunfernecia cintura 8, P. Arteriar  sistolica/diastolica 9, PORCENTAJE DE GRASA 10
+ */
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -33,6 +38,8 @@ public class AgregarDato extends AppCompatActivity {
     String fecha = dia + "/" + mes + "/" + anio;
     SharedPreferences usuariognr;//lo uso para obtener el usuario almacenado
     Button btnaddpresion;
+    String genero;
+    Integer edad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +53,7 @@ public class AgregarDato extends AppCompatActivity {
 
         opciones = (Spinner) findViewById(R.id.opcionspinner);
 
-        String[] variables = {"Glucosa-(mg/dl):", "Hemoglobina-(%):", "Colesterol-(mg/dl):", "Trigliceridos-(mg/dl):", "Colesterol HDL-(mg/dl):", "Colesterol LDL-(mg/dl):", "Peso-(Kg):", "Circunfernecia cintura-(cm):"};
+        String[] variables = {"Glucosa-(mg/dl):", "Hemoglobina-(%):", "Colesterol-(mg/dl):", "Trigliceridos-(mg/dl):", "Colesterol HDL-(mg/dl):", "Colesterol LDL-(mg/dl):", "Peso-(Kg):", "Circunfernecia cintura-(cm):","Porcentaje de grasa-(%)"};
 
         opciones.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, variables));
         usuariognr = getSharedPreferences("Guardarusuario", MODE_PRIVATE);//instancio el objeto para obtener usuario
@@ -132,6 +139,9 @@ public class AgregarDato extends AppCompatActivity {
         if (d.equals("P Arterial Sistolica/Diastolica")) {
             r = 9;
         }
+        if (d.equals("Porcentaje de grasa")) {
+            r = 10;
+        }
         return r;
     }
 
@@ -171,8 +181,13 @@ public class AgregarDato extends AppCompatActivity {
         if (u.equals("Circunfernecia cintura") & (d < 10 | d > 500)) {
             res = "Por favor ingrese un valor entre 10 y 500";
         }
+        if (u.equals("Porcentaje de grasa") & (d >= 50)) {
+            res = "Por favor ingrese un valor menor a 50";
+        }
+
         return res;
     }
+
 
     public String valpresion() {
         String res="";
