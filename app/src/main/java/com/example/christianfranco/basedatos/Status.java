@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +22,12 @@ public class Status extends AppCompatActivity {
     //TextView PGR,PG,Ppresion,Ppeso,TGR,TG,Tpresion,Tpeso;
     TextView GT, HT, CT, TT, COLT, COLLT, PEST, CIRT, PAT, IMT, PGT;
     TextView GR, HR, CR, TR, COLR, COLLR, PESR, CIRR, PAR, IMR, PGR;
+    Button btnConsejo;
     String g;
     Integer edad;
     Float imc = 0f;
+
+    static Integer g1=0,g2=0;//
 
     SharedPreferences usuariognr;//lo uso para obtener el usuario almacenado
     Boolean ban = false;
@@ -40,6 +44,7 @@ public class Status extends AppCompatActivity {
         final String usuario = usuariognr.getString("usuario", "vacio");
 
         final DialogIni dialog = new DialogIni();
+        final DialogConsejo dc = new DialogConsejo();
 
 
         GT = (TextView) findViewById(R.id.GT);
@@ -66,6 +71,8 @@ public class Status extends AppCompatActivity {
         PAR = (TextView) findViewById(R.id.PAR);
         IMR = (TextView) findViewById(R.id.IMR);
 
+        btnConsejo=(Button)findViewById(R.id.btnConsejo);
+
         res = obtenerdatos(usuario);//se obtienen todas las variables y el genero del usuario
 
         if (ban == false) {
@@ -73,10 +80,20 @@ public class Status extends AppCompatActivity {
             asignarcolores(g, edad);
         }
 
+        /*
         GT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.show(getSupportFragmentManager(), "dialogo");
+            }
+        });
+        */
+
+
+        btnConsejo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dc.show(getSupportFragmentManager(),"dialogo");
             }
         });
 
@@ -169,6 +186,7 @@ public class Status extends AppCompatActivity {
                 HT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 HT.setBackgroundResource(R.color.ROJO);
+                g2++;
             }
         }
 
@@ -181,6 +199,7 @@ public class Status extends AppCompatActivity {
                 CT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 CT.setBackgroundResource(R.color.ROJO);
+                g2++;
             }
         }
         //trigliceridos
@@ -191,6 +210,7 @@ public class Status extends AppCompatActivity {
                 TT.setBackgroundResource(R.color.VERDE);
             } else {//rojo
                 TT.setBackgroundResource(R.color.ROJO);
+                g2++;
             }
         }
         //colesterol hdl
@@ -233,6 +253,7 @@ public class Status extends AppCompatActivity {
                     CIRT.setBackgroundResource(R.color.AMARILLO);
                 } else if (Float.valueOf(res.get(7)) > 102) {//ROJO
                     CIRT.setBackgroundResource(R.color.ROJO);
+                    g1++;
                 }
             } else {
                 if (Float.valueOf(res.get(7)) < 80) {//VERDE
@@ -241,6 +262,7 @@ public class Status extends AppCompatActivity {
                     CIRT.setBackgroundResource(R.color.AMARILLO);
                 } else if (Float.valueOf(res.get(7)) > 88) {//ROJO
                     CIRT.setBackgroundResource(R.color.ROJO);
+                    g1++;
                 }
             }
         }
@@ -255,9 +277,12 @@ public class Status extends AppCompatActivity {
                 PAT.setBackgroundResource(R.color.AMARILLO);
             } else if ((Float.valueOf(parts[0]) > 130) | Float.valueOf(parts[1]) > 80) {//rojo
                 PAT.setBackgroundResource(R.color.ROJO);
+                g1++;
             }
         }
 
+
+        //porcentaje de grasa
         if (res.get(9).equals("Sin Registro")) {
 
         } else {
@@ -267,18 +292,21 @@ public class Status extends AppCompatActivity {
                         PGT.setBackgroundResource(R.color.VERDE);
                     } else if (Float.valueOf(res.get(9)) > 20) {//ROJO
                         PGT.setBackgroundResource(R.color.ROJO);
+                        g1++;
                     }
                 } else if (e >= 40 && e <= 59) {
                     if (Float.valueOf(res.get(9)) >= 11 && Float.valueOf(res.get(9)) <= 22) {//VERDE
                         PGT.setBackgroundResource(R.color.VERDE);
                     } else if (Float.valueOf(res.get(9)) > 22) {//ROJO
                         PGT.setBackgroundResource(R.color.ROJO);
+                        g1++;
                     }
                 } else if (e >= 60 && e <= 79) {
                     if (Float.valueOf(res.get(9)) >= 13 && Float.valueOf(res.get(9)) <= 25) {//VERDE
                         PGT.setBackgroundResource(R.color.VERDE);
                     } else if (Float.valueOf(res.get(9)) > 25) {//ROJO
                         PGT.setBackgroundResource(R.color.ROJO);
+                        g1++;
                     }
                 }
             } else {
@@ -287,18 +315,21 @@ public class Status extends AppCompatActivity {
                         PGT.setBackgroundResource(R.color.VERDE);
                     } else if (Float.valueOf(res.get(9)) > 33) {//ROJO
                         PGT.setBackgroundResource(R.color.ROJO);
+                        g1++;
                     }
                 } else if (e >= 40 && e <= 59) {
                     if (Float.valueOf(res.get(9)) >= 23 && Float.valueOf(res.get(9)) <= 34) {//VERDE
                         PGT.setBackgroundResource(R.color.VERDE);
                     } else if (Float.valueOf(res.get(9)) > 34) {//ROJO
                         PGT.setBackgroundResource(R.color.ROJO);
+                        g1++;
                     }
                 } else if (e >= 60 && e <= 79) {
                     if (Float.valueOf(res.get(9)) >= 24 && Float.valueOf(res.get(9)) <= 36) {//VERDE
                         PGT.setBackgroundResource(R.color.VERDE);
                     } else if (Float.valueOf(res.get(9)) > 36) {//ROJO
                         PGT.setBackgroundResource(R.color.ROJO);
+                        g1++;
                     }
                 }
             }
