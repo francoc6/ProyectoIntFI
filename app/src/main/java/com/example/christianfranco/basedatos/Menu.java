@@ -137,7 +137,6 @@ public class Menu extends AppCompatActivity {
         if (!checkLocation()) {
             return;
         } else {
-            //Intent op = new Intent(Menu.this,Actividad.class);
             Intent op = new Intent(Menu.this, Actividad.class);
             startActivity(op);
             finish();
@@ -151,6 +150,9 @@ public class Menu extends AppCompatActivity {
         return isLocationEnabled();
     }
 
+    /*
+    presenta el mensaje para encender el gps
+     */
     public void alerta() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Configurar Ubicacion")

@@ -72,7 +72,9 @@ public class CuestDiab extends AppCompatActivity {
         });
     }
 
-    //obtengo las respuestas de las preguntas en un string
+    /*
+    obtengo las respuestas de las preguntas en un string
+     */
     public int resultados() {//se lo podria hacer con un case, pero seria casi lo mismo obteniendo los id
         Integer res = 0;//creo un string que se concatenara con las respuestas
         //Pregunta 1
@@ -130,7 +132,10 @@ public class CuestDiab extends AppCompatActivity {
     }
 
 
-    public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
+    /*
+    al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
+     */
+    public void onBackPressed() {
             Intent menu = new Intent(CuestDiab.this, Menu.class);
             startActivity(menu);
             finish();

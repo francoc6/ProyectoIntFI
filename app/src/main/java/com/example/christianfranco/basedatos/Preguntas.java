@@ -34,13 +34,14 @@ public class Preguntas extends AppCompatActivity {
     public String PF;
     boolean confirmar = false;
 
-    ///////////////////////Obtengo la fecha y la hora////////////////////////////////////////////////
+    /*
+    obtengo fecha y hora, con su formato
+     */
     java.util.Calendar calendarNow = new GregorianCalendar(TimeZone.getTimeZone("America/Guayaquil"));
     String time = calendarNow.getTime().toString();
     String[] parts = time.split(" ");//Thu Dec 06 21:06:21 GMT-05:00 2018
     String fecha = parts[2] + "/" + parts[1] + "/" + parts[5];
     String hora = parts[3];
-//////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,9 @@ public class Preguntas extends AppCompatActivity {
         Preg4 = (TextView) findViewById(R.id.Pregunta4);
         Aceptar = findViewById(R.id.iniAceptar);
 
-///////////////////////////////////////////////////////DATOS GUARDADOS EN EL DISPOSITIVO//////////////////////////////////////////////////////////////////////////////////
+/*
+datos guardados en el dispositivo
+ */
         usuariognr = getSharedPreferences("Guardarusuario", MODE_PRIVATE);//instancio el objeto para obtener usuario
         final String usuario = usuariognr.getString("usuario", "vacio");
         posicion = getSharedPreferences("Ubicacion", MODE_PRIVATE);//instancio para obtener latitud y longitud
@@ -82,9 +85,10 @@ public class Preguntas extends AppCompatActivity {
         temp = getSharedPreferences("Clima", MODE_PRIVATE);//instancio el objeto para obtener las vaiables el clima
         final String Temperatura = temp.getString("Temperatura", "vacio");
         final String Ciudad = temp.getString("Ciudad", "vacio");
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //valido si es el inicio o final para mostrar las preguntas correctas
+        /*
+        valido si es el inicio o final para mostrar las preguntas correctas
+         */
         if (!Conectar.banderaformulario) {
             Actividad.yasehizo = true;//cuando se lo hace por primera vez, ya no presenta el formulario interfiere cuando se presiona el boton para pausar cronometro
             Conectar.banderaformulario = true;//para ver si se presentan las preguntas iniciales o finales
@@ -93,8 +97,9 @@ public class Preguntas extends AppCompatActivity {
             Conectar.banderaformulario = false;
         }
 
-        //cargo las preguntas correspondientes a presentar
-        //obtenerPreguntas();
+        /*
+        cargo las preguntas correspondientes a presentar
+         */
         cargarpreguntas();
 
         Aceptar.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +108,6 @@ public class Preguntas extends AppCompatActivity {
                 resultados();
                 if (confirmar == true) {
                     if (!Conectar.banderaformulario) {
-                        // posicion(usuario, String.valueOf(Actividad.pasos));//actualizo la tabla de posicion para logros
                         agregaractividad(usuario, fecha, hora, String.valueOf(Actividad.obtenertiempo(Actividad.tiempofinal)), String.valueOf(Actividad.pasos), Actividad.Preguntas_I, PF, Lati, Longi, Temperatura, Ciudad);
                         Intent salir = new Intent(Preguntas.this, Menu.class);
                         startActivity(salir);
@@ -120,9 +124,11 @@ public class Preguntas extends AppCompatActivity {
         });
     }
 
-    //obtengo las respuestas de las preguntas en un string
-    public void resultados() {//se lo podria hacer con un case, pero seria casi lo mismo obteniendo los id
-        String res = "";//creo un string que se concatenara con las respuestas
+    /*
+    obtengo las respuestas de las preguntas en un string
+     */
+    public void resultados() {
+        String res = "";
         //Pregunta 1
         if (p11.isChecked()) {
             res += "1 ";
@@ -205,7 +211,7 @@ public class Preguntas extends AppCompatActivity {
 
     }
 
-    //metodo para agregar datos a la base
+
     Conectar conectar = new Conectar();
     public void agregaractividad(String u, String f, String h, String t, String p, String PI, String PF, String Lat, String Long, String temp, String Ciudad) {
         String orden = "insert into ACTIVIDAD values(?,?,?,?,?,?,?,?,?,?)";
@@ -226,17 +232,21 @@ public class Preguntas extends AppCompatActivity {
             pedir.close();//cierro la conexion
             posicion(u, p);//actualizo la tabla de posicion para logros
         } catch (SQLException e) {
-           // guardarluego(u, f, h, t, p, PI, PF, Lat, Long, temp, Ciudad);//los almaceno para luego subirlos a la base
+            // guardarluego(u, f, h, t, p, PI, PF, Lat, Long, temp, Ciudad);//los almaceno para luego subirlos a la base
             Toast.makeText(getApplicationContext(), "Hubo un problemqa de red, se guardaran los  datos luego", Toast.LENGTH_SHORT).show();
         }
     }
 
-    //boton fisico
+    /*
+    boton fisico
+     */
     @Override
-    public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
+    public void onBackPressed() {
     }
 
-    //metodo para almacenar datos en memoria del dispositivo, si no hay conexion a la base
+    /*
+    metodo para almacenar datos en memoria del dispositivo, si no hay conexion a la base
+     */
     public void guardarluego(String u, String f, String h, String t, String p, String PI, String PF, String Lat, String Long, String temp, String Ciudad) {
         SharedPreferences keepdata = getSharedPreferences("Backup", getApplicationContext().MODE_PRIVATE);
         SharedPreferences.Editor editor = keepdata.edit();
@@ -254,7 +264,9 @@ public class Preguntas extends AppCompatActivity {
         editor.commit();
     }
 
-    //actualiza el registro de pasos totales
+    /*
+    actualiza el registro de pasos totales
+     */
     public void posicion(String u, String p) {
         String orden = "select Pasos from TotalPasos_db WHERE Usuario='" + u + "'";
         try {

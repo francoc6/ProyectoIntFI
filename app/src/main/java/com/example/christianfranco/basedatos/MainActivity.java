@@ -46,18 +46,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        usuariognr = getSharedPreferences("Guardarusuario", MODE_PRIVATE);//instancio el objeto para obtener usuario
-        final String usuario = usuariognr.getString("usuario", "vacio");
-
         editUSR = (EditText) findViewById(R.id.edtUSR);
         editPSW = (EditText) findViewById(R.id.editPSW);
         btnIN = (Button) findViewById(R.id.btnIN);
         addusr = (TextView) findViewById(R.id.registarse);
         sp = getSharedPreferences("logged",MODE_PRIVATE);//varia para mantenerse logeado
+        usuariognr = getSharedPreferences("Guardarusuario", MODE_PRIVATE);//instancio el objeto para obtener usuario
+        final String usuario = usuariognr.getString("usuario", "vacio");
 
-        if (sp.getBoolean("logged", false)) {//este metodo revisa si ya esta logeado
+        /*
+         revisa si ya esta logeado, hace registro e ingresa al menu principal
+         */
+        if (sp.getBoolean("logged", false)) {
             registrodeentrada(usuario, parts[2]+"/"+parts[1]+"/"+parts[5],parts[3]);
-           // iraprincipal();
             finish();
             //Toast.makeText(getApplicationContext(), hora, Toast.LENGTH_SHORT).show();
         }
@@ -88,22 +89,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent newusr = new Intent(MainActivity.this, Registro.class);
                 startActivity(newusr);
-                finish();//evito que regresen al presionar el boton del celular
+                finish();
             }
         });
     }
 
-    //ir a menu principal
+    /*
+    ir a menu principal
+     */
     public void iraprincipal() {
-
-       // Intent menuprin = new Intent(MainActivity.this, MenuuPrincipal.class); //menu solo con botones
         Intent menuprin = new Intent(MainActivity.this, Menu.class);//nuevo menu con imagenes
         startActivity(menuprin);
 
     }
 
     Conectar contacto = new Conectar();
-    //descargar lista para comprobar usuarios y contraseña
+    /*
+    descargar lista para comprobar usuarios y contraseña
+     */
     public boolean ingreso(String u, String p) {
         List<String> userpass= new ArrayList<>();
         try {
@@ -119,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
         return comprobar(u, p, userpass);
     }
 
-    //agrego a la base de datos el ingreso
+    /*
+    agrego a la base de datos el ingreso
+     */
     public void registrodeentrada(String u, String f,String h){
         String orden ="insert into Ingreso_DB values(?,?,?)";
         try {
@@ -136,7 +141,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //metodo para guardar usuario
+    /*
+    metodo para guardar usuario
+     */
     public void guardarusr(){
         keepusr = getSharedPreferences("Guardarusuario",context.MODE_PRIVATE);
         SharedPreferences.Editor editor = keepusr.edit();
@@ -144,7 +151,9 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    //compruebo las credenciales con las de la base
+    /*
+    compruebo las credenciales con las de la base
+     */
     public boolean comprobar (String u,String p, List<String> usuarios){//funcion que realiza el logeo
         for (int i=0; i<usuarios.size(); ++i){
             String[] parts =usuarios.get(i).split(" ");//para tomar solo la palabra y no la unidad lo llamo con parts[0]

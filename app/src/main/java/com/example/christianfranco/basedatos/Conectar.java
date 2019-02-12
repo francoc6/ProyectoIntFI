@@ -16,7 +16,9 @@ public class Conectar extends AppCompatActivity {
     public Connection conectarabase(){
         Connection conexion=null;//objeto tipo conection para acceder
         try{
-            //registramos el permiso de acceso para la aplicacion
+            /*
+            registramos el permiso de acceso para la aplicacion
+             */
             StrictMode.ThreadPolicy policy =new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();

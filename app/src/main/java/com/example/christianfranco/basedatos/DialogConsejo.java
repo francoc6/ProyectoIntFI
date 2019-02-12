@@ -15,6 +15,9 @@ public class DialogConsejo extends DialogFragment {
 
 
 
+    /*
+    se configuran las imagen dependiendo del status
+     */
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_consejo, container, false);

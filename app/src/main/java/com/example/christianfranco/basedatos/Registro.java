@@ -127,13 +127,12 @@ public class Registro extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
-        // } catch (SQLException e) {
-        //     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        //  }
         return yaexiste(u, usr);
     }
 
-    //metodo para verificar campos vacios
+    /*
+    metodo para verificar campos vacios
+     */
     public String verificarcampos(String Nombre, String A, String U, String Correo, String Edad, String Pass, String Tall) {
         String resultado = "";
         if (Nombre.isEmpty()) {
@@ -160,7 +159,9 @@ public class Registro extends AppCompatActivity {
         return resultado;
     }
 
-    //metodo para verficar tamaño y edad
+    /*
+    metodo para verficar tamaño y edad
+     */
     public String tamanio(String Nombre, String A, String U, String Correo, String Edad, String Pass, String Tall) {
         String resultado = "";
         if (Nombre.length() > 40) {
@@ -188,7 +189,9 @@ public class Registro extends AppCompatActivity {
         return resultado;
     }
 
-    //boton fisico
+    /*
+    boton fisico
+     */
     @Override
     public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
         Intent go = new Intent(Registro.this, MainActivity.class);
@@ -196,7 +199,9 @@ public class Registro extends AppCompatActivity {
         finish();
     }
 
-    //metodo para comprobar si el usuario existe
+    /*
+    metodo para comprobar si el usuario existe
+     */
     public boolean yaexiste(String u, List<String> usuarios) {
         for (int i = 0; i < usuarios.size(); ++i) {
             if (usuarios.get(i).equals(u)) {

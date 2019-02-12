@@ -416,6 +416,9 @@ public class CuestiPresion extends AppCompatActivity {
         return r = e + c + f + h + s;
     }
 
+    /*
+    el texto de respuesta acorde a la puntuacion
+     */
     public String res(int g,int t){
         String re="";
         if(g==1){//h
@@ -488,7 +491,10 @@ public class CuestiPresion extends AppCompatActivity {
         return re;
     }
 
-    public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
+    /*
+    al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
+     */
+    public void onBackPressed() {
         Intent menu = new Intent(CuestiPresion.this, Menu.class);
         startActivity(menu);
         finish();

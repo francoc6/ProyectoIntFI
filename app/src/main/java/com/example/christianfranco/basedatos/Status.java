@@ -76,19 +76,8 @@ public class Status extends AppCompatActivity {
         res = obtenerdatos(usuario);//se obtienen todas las variables y el genero del usuario
 
         if (ban == false) {
-            //color();
             asignarcolores(g, edad);
         }
-
-        /*
-        GT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.show(getSupportFragmentManager(), "dialogo");
-            }
-        });
-        */
-
 
         btnConsejo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +89,10 @@ public class Status extends AppCompatActivity {
     }
 
 
-    //obtengo los ultimos valores de las variables del usuario
+    /*
+    obtengo los ultimos valores de las variables del usuario
+     */
     Conectar conectar = new Conectar();
-
     public ArrayList<String> obtenerdatos(String u) {
         ArrayList<String> resul = new ArrayList<>();
         ArrayList<String> temp = new ArrayList<>();
@@ -347,7 +337,9 @@ public class Status extends AppCompatActivity {
         }
     }
 
-    //boton fisico
+    /*
+    boton fisico
+     */
     @Override
     public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
         Intent menu = new Intent(Status.this, Menu.class);

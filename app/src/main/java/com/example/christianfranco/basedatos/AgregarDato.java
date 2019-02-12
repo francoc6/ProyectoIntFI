@@ -109,7 +109,9 @@ public class AgregarDato extends AppCompatActivity {
         }
     }
 
-    //en la base no se almacenan los nombres de las variables sino un numero
+    /*
+    en la base no se almacenan los nombres de las variables sino un numero
+     */
     public static int obtenerindice(String d) {
         int r = 0;
         if (d.equals("Glucosa")) {
@@ -145,7 +147,9 @@ public class AgregarDato extends AppCompatActivity {
         return r;
     }
 
-    //boton fisico
+    /*
+    boton fisico
+     */
     @Override
     public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
         Intent menu = new Intent(AgregarDato.this, Menu.class);
@@ -153,7 +157,9 @@ public class AgregarDato extends AppCompatActivity {
         finish();
     }
 
-    //valida las entradas de acuerdo a valores referenciales proporcionados por las compañeras de licnut
+    /*
+    valida las entradas de acuerdo a valores referenciales proporcionados por las compañeras de licnut
+     */
     public String validar(String u, String v) {
         Float d = Float.valueOf(v);
         String res = "";
@@ -188,7 +194,9 @@ public class AgregarDato extends AppCompatActivity {
         return res;
     }
 
-
+    /*
+    Valida solamente la presion
+     */
     public String valpresion() {
         String res="";
         if (Float.valueOf(diastolica.getText().toString()) != 0 | Float.valueOf(sistolica.getText().toString()) != 0) {

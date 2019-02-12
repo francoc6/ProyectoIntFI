@@ -78,7 +78,9 @@ public class Consulta extends AppCompatActivity {
         });
     }
 
-//descargo los datos requeridos por el usuario desded la base de datos y devuelvo un arraylist
+/*
+descargo los datos requeridos por el usuario desded la base de datos y devuelvo un arraylist
+ */
     Conectar contacto = new Conectar();
     public ArrayList<String> respuesta(Integer i, String u){
         //conexion y descarga de datos
@@ -100,7 +102,9 @@ public class Consulta extends AppCompatActivity {
         return ans;
     }
 
-    //boton fisico
+    /*
+    boton fisico
+     */
     @Override
     public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
             Intent menu = new Intent(Consulta.this,Menu.class);

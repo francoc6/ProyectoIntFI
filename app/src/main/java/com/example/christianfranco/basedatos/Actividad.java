@@ -44,17 +44,21 @@ public class Actividad extends AppCompatActivity implements LocationListener {
     public static String Preguntas_I;
     public static int pasos;
 
-    //////////////////////////////////////////////ubicacion/////////////////////////////////////////////////////////////////
+    /*
+    Ubicacionn
+     */
+
     public static String tvLongi;
     public static String tvLati;
     LocationManager locationManager;
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+clima
+ */
 
-    ////////////////////////////////////////clima////////////////////////////////////////////////////////////////////////
     final String APP_ID = "b13f14be7c0909550f568e788748a9b8";
     final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather";
     public String temperatura, ciudad;
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,9 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         simpleChronometer = (Chronometer) findViewById(R.id.simpleChronometer);
         simpleChronometer.setFormat("%s");
 
-        //posicion
+        /*
+        Posicion
+         */
         CheckPermission();
 
 
@@ -172,7 +178,9 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         });
     }
 
-    //boton fisico
+    /*
+    boton fisico
+     */
     @Override
     public void onBackPressed() {//al presionarlo regresa al menu principal, solo si no esta contando pasos, obligando que utilicen el btn de  la app regresar
         if (BtnStart.isEnabled() && !BtnPausa.isEnabled() && !BtnStop.isEnabled() && BtnRegresar.isEnabled()) {
@@ -182,7 +190,9 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         }
     }
 
-    //metodos para el reloj
+    /*
+    metodos de reloj
+     */
     public void start() {
         if (!banderapausa) {
             simpleChronometer.setBase(SystemClock.elapsedRealtime() - tiempopausa);
@@ -212,7 +222,9 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         banderapausa = false;
     }
 
-    //lo transformo a un valor H:M:S:MS
+    /*
+    lo transformo a un valor H:M:S:MS
+     */
     public static String obtenertiempo(long t) {
         int resmili, resseg, resmin, reshora;
         String mili, seg, min, hora;
@@ -282,8 +294,10 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         }
     }
 
-///////////////////////////////////////////////////////////POSICION///////////////////////////////////////////////////////////////////////////////////////
 
+    /*
+    posicion
+     */
     //metodo para almacenar datos en memoria del dispositivo
     public void guardatos(String Latitud, String Longitud) {
         SharedPreferences keepdata = getSharedPreferences("Ubicacion", getApplicationContext().MODE_PRIVATE);
@@ -293,14 +307,13 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         editor.commit();
     }
 
-    /* Request updates at startup */
     @Override
     public void onResume() {
         super.onResume();
         getLocation();
     }
 
-    /* Remove the locationlistener updates when Activity is paused */
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -357,14 +370,14 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         locationManager.removeUpdates(this);
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////CLIMA///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    /*
+    clima
     //se utiliza la version gratuita de un api de OPENWEATHERMAP.ORG el cual solo permite 60 consultas por minuto
     //Con onLocationChanged de la posicion, se llama al metodo para que obtenga el clima y la ciudad
-
     //en este metodo se envia la latitud y longitud, con la key para acceder al OPENWEATHER, a letsDoSomeNetworking
+     */
+
     public void getWeatherForCurrentLocation(String latitud, String longitud) {
         String Longitude = longitud;
         String Latitude = latitud;
@@ -395,7 +408,9 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         });
     }
 
-    //los asigna a las variables temperatura y ciudad
+    /*
+    los asigna a las variables temperatura y ciudad
+     */
     public void ObtenerDatos(WeatherDataModel data) {
         temperatura = data.getTemperature();
         ciudad = data.getCity();
@@ -408,10 +423,9 @@ public class Actividad extends AppCompatActivity implements LocationListener {
 
 
     }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //////////////////////preguntas////////////////////////////////////////////////////////////////////////////////////////
-    //guardo las preguntas inicilaes y finales
+/*
+preuntas, obtengo las preguntas
+ */
 
     public void guardarpreguntas() {
         List<String> pregi = new ArrayList<>();
@@ -450,9 +464,12 @@ public class Actividad extends AppCompatActivity implements LocationListener {
             //  Toast.makeText(getApplicationContext(),"No se puede obtener preguntas.", Toast.LENGTH_SHORT).show();
         }
     }
-////////////////////////////////////////////////////////
 
-    //////////////////////////Metodos del contador de pasos para que funcionen correctamente////////////////////////////////
+
+
+    /*
+    metodos del contador de  pasos
+     */
     public int obtenervalor() {
         int r = 0;
         SharedPreferences data = getSharedPreferences("Valor", getApplicationContext().MODE_PRIVATE);//instancio el objeto para obtener usuario
@@ -468,5 +485,4 @@ public class Actividad extends AppCompatActivity implements LocationListener {
         editor.commit();
         StepDetector.val = ant + 1;
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
