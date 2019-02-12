@@ -3,7 +3,7 @@ package com.example.christianfranco.basedatos;
 
 /*
 se van a agregar los datos con id segun el tipo: Glucosa 1, Hemoglobina 2,Colesterol 3,Trigliceridos 4, Colesterol HDL 5
- Colesterol LDL 6, Peso 7, Circunfernecia cintura 8, P. Arteriar  sistolica/diastolica 9, PORCENTAJE DE GRASA 10
+ Colesterol LDL 6, Peso 7, Circunferencia cintura 8, P. Arteriar  sistolica/diastolica 9, PORCENTAJE DE GRASA 10
  */
 
 import android.content.Intent;
@@ -53,7 +53,7 @@ public class AgregarDato extends AppCompatActivity {
 
         opciones = (Spinner) findViewById(R.id.opcionspinner);
 
-        String[] variables = {"Glucosa-(mg/dl):", "Hemoglobina-(%):", "Colesterol-(mg/dl):", "Trigliceridos-(mg/dl):", "Colesterol HDL-(mg/dl):", "Colesterol LDL-(mg/dl):", "Peso-(Kg):", "Circunfernecia cintura-(cm):","Porcentaje de grasa-(%)"};
+        String[] variables = {"Glucosa-(mg/dl):", "Hemoglobina-(%):", "Colesterol-(mg/dl):", "Trigliceridos-(mg/dl):", "Colesterol HDL-(mg/dl):", "Colesterol LDL-(mg/dl):", "Peso-(Kg):", "Circunferencia cintura-(cm):","Porcentaje de grasa-(%)"};
 
         opciones.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, variables));
         usuariognr = getSharedPreferences("Guardarusuario", MODE_PRIVATE);//instancio el objeto para obtener usuario
@@ -133,7 +133,7 @@ public class AgregarDato extends AppCompatActivity {
         if (d.equals("Peso")) {
             r = 7;
         }
-        if (d.equals("Circunfernecia cintura")) {
+        if (d.equals("Circunferencia cintura")) {
             r = 8;
         }
         if (d.equals("P Arterial Sistolica/Diastolica")) {
@@ -178,7 +178,7 @@ public class AgregarDato extends AppCompatActivity {
         if (u.equals("Peso") & (d < 20 | d > 500)) {
             res = "Por favor ingrese un valor entre 20 y 500";
         }
-        if (u.equals("Circunfernecia cintura") & (d < 10 | d > 500)) {
+        if (u.equals("Circunferencia cintura") & (d < 10 | d > 500)) {
             res = "Por favor ingrese un valor entre 10 y 500";
         }
         if (u.equals("Porcentaje de grasa") & (d >= 50)) {
